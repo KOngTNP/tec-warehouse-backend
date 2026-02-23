@@ -1,0 +1,1133 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""ยอมรับทั้ง String URL และ File Upload"""
+scalar AnyHybridComparePrice
+
+"""ยอมรับทั้ง String URL และ File Upload"""
+scalar AnyHybridQuotation
+
+type Brand {
+  description: String
+  id: String!
+  name: String!
+  products: [Product!]
+}
+
+type Category {
+  ExCode: String!
+  description: String
+  id: String!
+  name: String!
+  products: [Product!]
+}
+
+type ComparePrice {
+  OldRr: String
+  buyName: String
+  createBy: String
+  createdAt: DateTime!
+  currency: String!
+  deletedAt: DateTime
+  deliveryPrice: Float
+  deliveryType: DeliveryType!
+  disableBy: String
+  disableNote: String
+  discount: String
+  financialCondition: String
+  id: String!
+  images: [String!]
+  isDisable: Boolean!
+  isOutOfStock: Boolean!
+  isPick: Boolean!
+  leadTime: String
+  link: String
+  modifiedAt: DateTime
+  note: String
+  pickBy: String
+  pickNote: String
+  poNumber: String
+  productId: String
+  quantity: Int
+  quotationItemProductId: String
+  quotations: [String!]
+  saleUserId: String
+  sequence: Int
+  sourceType: SourceType!
+  totalPrice: Float
+  totalPriceNoVat: Float
+  unit: String
+  unitPrice: Float
+  vat: Float
+  vatType: String
+  vender: Vender
+  venderId: String
+}
+
+input CreateBrandInput {
+  description: String
+  name: String!
+}
+
+input CreateComparePriceInput {
+  OldRr: String
+  buyName: String
+  currency: String! = "THB"
+  deliveryPrice: Float! = 0
+  deliveryType: DeliveryType! = DELIVERY
+  discount: String
+  images: [AnyHybridComparePrice]
+  isOutOfStock: Boolean! = false
+  leadTime: String
+  link: String
+  note: String
+  productId: String!
+  quantity: Int
+  quotationItemProductId: String!
+  quotations: [AnyHybridComparePrice]
+  saleUserId: String
+  sourceType: SourceType! = NEW
+  totalPrice: Float
+  totalPriceNoVat: Float
+  unit: String
+  unitPrice: Float
+  vat: Float
+  vatType: String
+  venderId: String
+}
+
+input CreateCustomerInput {
+  address: String
+  branch: String
+  companyId: String
+  contact: String
+  name: String!
+  remark: String
+  taxId: String
+  zipCode: String
+}
+
+input CreateEndUserInput {
+  customerId: String!
+  email: String
+  lineId: String
+  name: String!
+  tel: String
+}
+
+input CreateProductInput {
+  ExCode: String
+  brandId: ID
+  categoryId: ID
+  companyId: ID
+  dataSheetFiles: [Upload!]
+  description: String
+  detail: String
+  imageFiles: [Upload!]
+  isGroup: Boolean! = false
+  name: String!
+  partstore: String!
+  unit: String!
+  videoFiles: [Upload!]
+}
+
+input CreatePurchasingUserInput {
+  customerId: String!
+  email: String
+  lineId: String
+  name: String!
+  tel: String
+}
+
+input CreateQuotationInput {
+  companyId: String
+  contact: String
+  customerId: String
+  deliveryDueDate: String
+  documentNumber: String
+  email: String
+  endUserId: String
+  expirationDate: DateTime
+  inSiderFile: [AnyHybridQuotation]
+  inSiderNote: String
+  items: [QuotationItemInput!]!
+  leadChannel: String
+  leadReceivedDate: DateTime
+  note: String
+  paymentTerm: String
+  priceApprovedBy: String
+  priceValidUntil: String
+  purchasingUserId: String
+  quotationDocuments: [AnyHybridQuotation]
+  quotationImages: [AnyHybridQuotation]
+  quotationNumber: String!
+  quotedBy: String
+  quotedDate: DateTime
+  reference: String
+  referenceLink: String
+  salesUser: String
+  status: String
+  userId: String
+}
+
+input CreateQuotationItemProductInput {
+  note: String
+  productId: String!
+  quotationItemId: String
+  workSheetImages: [String!]
+}
+
+input CreateSaleUserInput {
+  email: String
+  lineId: String
+  name: String!
+  tel: String
+  venderId: String!
+}
+
+input CreateVenderInput {
+  ExAcCode: String
+  ExCode: String!
+  address: String
+  branch: String
+  companyId: String
+  contact: String
+  creditTerm: Int
+  deliveryBy: String
+  financialAmount: Float
+  financialCondition: String
+  name: String!
+  note: String
+  remark: String
+  taxId: String
+  telNumber: String
+  type: String!
+  zipCode: String
+}
+
+type Customer {
+  ExAcCode: String
+  ExCode: String!
+  address: String
+  area: String
+  branch: String
+  condition: String
+  contact: String
+  creditTerm: Float
+  deliveryBy: String
+  financialAmount: Float
+  id: String!
+  name: String!
+  remark: String
+  taxId: String
+  telNumber: String
+  type: String!
+  zipCode: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum DeliveryType {
+  DELIVERY
+  PICKUP
+}
+
+type EndUser {
+  companyId: String
+  createdAt: DateTime!
+  email: String
+  id: ID!
+  lineId: String
+  modifiedAt: DateTime!
+  name: String
+  note: String
+  tel: String
+}
+
+input GrantAdminInput {
+  key: String!
+  role: String!
+  userId: String!
+}
+
+type ImportResultDto {
+  duration: String
+  endTime: String
+  error: String
+  message: String!
+  startTime: String
+  status: String!
+}
+
+type Mutation {
+  """Add image to product by product ID"""
+  addProductImageById(imageUrl: String!, productId: String!): Product!
+  checkSigninAttempt(email: String!): String
+
+  """Create a new brand"""
+  createBrand(input: CreateBrandInput!): Brand!
+  createComparePrice(input: CreateComparePriceInput!): ComparePrice!
+  createCustomerSearchFile(companyId: String): Boolean
+  createEndUser(input: CreateEndUserInput!): EndUser!
+  createLineAuthCustomToken(customTokenKey: String!, userId: String!): String!
+  createProductSearchFile(companyId: String): Boolean
+  createPurchasingUser(input: CreatePurchasingUserInput!): PurchasingUser!
+  createQuotation(input: CreateQuotationInput!): Quotation!
+  createQuotationItemProduct(files: [Upload!], input: CreateQuotationItemProductInput!): QuotationItemProduct!
+  createSaleUser(input: CreateSaleUserInput!): SaleUser!
+  createSigninAttempt(email: String!): String
+
+  """สร้าง Customer ใหม่ชั่วคราวจากหน้าจัดซื้อ"""
+  createTempCustomer(customerInput: CreateCustomerInput!): Customer!
+  createTempProduct(input: CreateProductInput!): Product!
+
+  """สร้าง Vender ใหม่ชั่วคราวจากหน้าจัดซื้อ"""
+  createTempVender(input: CreateVenderInput!): Vender!
+  createVenderSearchFile(companyId: String): Boolean
+
+  """Delete compare price and its files"""
+  deleteComparePrice(id: String!): Boolean!
+  deleteFirebaseAccount(id: String!): Boolean!
+  deleteQuotationItemProduct(id: String!): Boolean!
+  getResetPasswordPublicKeyPair: String!
+  grantAdmin(grantAdminInput: GrantAdminInput!): User
+  grantAdminByEmail(email: String!, role: String!): User
+
+  """Remove image from product by product ID"""
+  removeProductImageById(imageUrl: String!, productId: String!): Product!
+  resetPassword(id: String!, newPassword: String!, referenceKey: String!): Boolean!
+  resetSigninAttempt(email: String!): Boolean
+  revokeAdmin(grantAdminInput: GrantAdminInput!): User
+  revokeAdminByEmail(email: String!): User
+  sentMailResetPassword(email: String!): Boolean!
+  signIn: User
+
+  """Request OTP to specified phone number"""
+  signupOtpRequest(to: String!): String!
+  signupWithEmail(signUpInput: SignUpInput!): User
+  signupWithGoogle(signUpSocialInput: SignUpSocialInput!): User
+
+  """Trigger manual DBF import for all companies"""
+  triggerImportAll: ImportResultDto!
+  updateComparePrice(input: UpdateComparePriceInput!): ComparePrice!
+
+  """เลือก หรือ ยกเลิกการเลือกราคาเสนอ (Pick Price)"""
+  updateComparePriceDisable(disableNote: String, id: String!, isDisable: Boolean!): ComparePrice!
+
+  """เลือก หรือ ยกเลิกการเลือกราคาเสนอ (Pick Price)"""
+  updateComparePricePickAndPoNumber(id: String!, isPick: Boolean!, pickNote: String, poNumber: String): ComparePrice!
+
+  """อัปเดตลำดับการแสดงผลของราคาเปรียบเทียบ"""
+  updateComparePriceSequence(sequences: [UpdateComparePriceSequenceInput!]!): Boolean!
+  updateProduct(dataSheetFiles: [Upload!], imageFiles: [Upload!], input: UpdateProductInput!, videoFiles: [Upload!]): Product!
+  updateQuotation(input: UpdateQuotationInput!): Quotation!
+  updateQuotationDate(date: DateTime!, id: String!): Quotation!
+
+  """แก้ไขหมายเหตุภายใน (Insider Note)"""
+  updateQuotationInsiderNote(id: String!, inSiderNote: String!): Quotation!
+
+  """แก้ไขหมายเหตุภายใน (Insider Note)"""
+  updateQuotationItemInsiderNote(id: String!, inSiderNote: String!): QuotationItem!
+
+  """แก้ไขหมายเหตุสินค้าจัดซื้อ"""
+  updateQuotationItemProductNote(id: String!, note: String!): QuotationItemProduct!
+
+  """อัปเดตลำดับการแสดงผลของQuotationItemProduct"""
+  updateQuotationItemProductSequence(sequences: [UpdateQuotationItemProductSequenceInput!]!): Boolean!
+
+  """แก้ไขราคาต่อหน่วย"""
+  updateQuotationItemUnitPrice(id: String!, unitPrice: Float!): QuotationItem!
+  updateQuotationStatus(id: String!, status: String!, username: String!): Quotation!
+
+  """แก้ไขข้อมูลผู้ติดต่อ (SaleUser)"""
+  updateSaleUser(input: UpdateSaleUserInput!): SaleUser!
+  updateUser(updateUserInput: UpdateUserInput!): User
+  updateVenderNote(note: String, vendorId: String): Vender!
+  uploadQuotationItemProductWorkSheetImages(files: [Upload!]!, quotationItemProductId: String!): QuotationItemProduct!
+  userSignupCheck(email: String!, mobileNo: String!): Boolean!
+  veriflyResetPassword(id: String!, referenceKey: String!): Boolean!
+}
+
+type Order {
+  billNumber: String
+  creditTerm: Float
+  customer: Customer
+  customerId: String
+  date: DateTime!
+  deliveryBy: String
+  deliveryDate: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  invoiceNumber: String
+  orderItem: [OrderItem!]
+  reference: String
+  totalPrice: Float!
+  totalPriceNoVat: Float!
+  vat: Float!
+  vatType: String
+}
+
+type OrderItem {
+  actualQuantity: Float!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  order: Order
+  orderId: String
+  product: Product
+  productId: String
+  quantity: Float!
+  reference: String
+  sellName: String!
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type OrderItemSummary {
+  totalOrder: Int!
+  totalQuantity: Int!
+  totalRevenue: Float!
+}
+
+type OrderIv {
+  actualQuantity: Float!
+  date: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  order: Order
+  orderId: String
+  product: Product
+  productId: String
+  quantity: Float!
+  reference: String
+  sellName: String!
+  seqNumber: Float
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type PaginatedBrand {
+  hasNextPage: Boolean!
+  nodes: [Brand!]!
+  totalCount: Int!
+}
+
+type PaginatedCategory {
+  hasNextPage: Boolean!
+  nodes: [Category!]!
+  totalCount: Int!
+}
+
+type PaginatedComparePrice {
+  hasNextPage: Boolean!
+  nodes: [ComparePrice!]!
+  totalCount: Int!
+}
+
+type PaginatedCustomer {
+  hasNextPage: Boolean!
+  nodes: [Customer!]!
+  totalCount: Int!
+}
+
+type PaginatedEndUser {
+  hasNextPage: Boolean!
+  nodes: [EndUser!]!
+  totalCount: Int!
+}
+
+type PaginatedOrder {
+  hasNextPage: Boolean!
+  nodes: [Order!]!
+  totalCount: Int!
+}
+
+type PaginatedOrderItem {
+  hasNextPage: Boolean!
+  nodes: [OrderItem!]!
+  totalCount: Int!
+}
+
+type PaginatedProduct {
+  hasNextPage: Boolean!
+  nodes: [Product!]!
+  totalCount: Int!
+}
+
+type PaginatedPurchase {
+  hasNextPage: Boolean!
+  nodes: [Purchase!]!
+  totalCount: Int!
+}
+
+type PaginatedPurchaseItem {
+  hasNextPage: Boolean!
+  nodes: [PurchaseItem!]!
+  totalCount: Int!
+}
+
+type PaginatedPurchasingUser {
+  hasNextPage: Boolean!
+  nodes: [PurchasingUser!]!
+  totalCount: Int!
+}
+
+type PaginatedQuotation {
+  hasNextPage: Boolean!
+  nodes: [Quotation!]!
+  totalCount: Int!
+}
+
+type PaginatedSaleUser {
+  hasNextPage: Boolean!
+  nodes: [SaleUser!]!
+  totalCount: Int!
+}
+
+type PaginatedUser {
+  hasNextPage: Boolean!
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+type PaginatedUserAdmin {
+  hasNextPage: Boolean!
+  nodes: [UserAdmin!]!
+  totalCount: Int!
+}
+
+type PaginatedVender {
+  hasNextPage: Boolean!
+  nodes: [Vender!]!
+  totalCount: Int!
+}
+
+type Product {
+  ExCode: String!
+  brandId: String
+  category: Category
+  categoryId: String
+  childGroups: [ProductGroup!]
+  dataSheets: [String!]
+  description: String
+  detail: String
+  id: String!
+  images: [String!]
+  isGroup: Boolean
+  lastBuyDetail: ProductLastBuyDetail
+  lastSellDetail: ProductLastSellDetail
+  name: String!
+  parentGroups: [ProductGroup!]
+  partstore: String
+  stock: Float!
+  unit: String!
+  videos: [String!]
+}
+
+type ProductGroup {
+  childProduct: Product
+  childProductId: ID
+  id: ID!
+  parentProduct: Product
+  parentProductId: ID
+  quantity: Float
+  seqNumber: Int
+}
+
+type ProductLastBuyDetail {
+  lastBuyCompareFileNumber: [String!]
+  lastBuyDate: DateTime
+  lastBuyDiscount: String
+  lastBuyPurchaseReference: String
+  lastBuyQuantity: Float
+  lastBuyRemark: [String!]
+  lastBuyTotalPrice: Float
+  lastBuyUnit: String
+  lastBuyUnitPrice: Float
+  lastBuyUnitPriceAfterDiscount: Float
+  lastBuyVatType: String
+  lastBuyVenderContact: String
+  lastBuyVenderName: String
+}
+
+type ProductLastSellDetail {
+  lastSellCustomerContact: String
+  lastSellCustomerName: String
+  lastSellDate: DateTime
+  lastSellDiscount: String
+  lastSellOrderReference: String
+  lastSellQuantity: Float
+  lastSellTotalPrice: Float
+  lastSellUnit: String
+  lastSellUnitPrice: Float
+  lastSellUnitPriceAfterDiscount: Float
+  lastSellVatType: String
+}
+
+type Purchase {
+  creditTerm: Float
+  date: DateTime!
+  deliveryBy: String
+  discount: String
+  documentNumber: String!
+  id: String!
+  purchaseItem: [PurchaseItem!]
+  purchaseNumber: String
+  receiptDate: DateTime!
+  reference: String
+  totalPrice: Float!
+  totalPriceNoVat: Float!
+  vat: Float!
+  vatType: String
+  vender: Vender
+  venderId: String
+}
+
+type PurchaseItem {
+  actualQuantity: Float!
+  buyName: String!
+  companyId: String
+  compareFileNumber: [String!]
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  product: Product
+  productId: String
+  purchase: Purchase
+  purchaseId: String
+  quantity: Float!
+  reference: String
+  remark: [String!]
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type PurchaseItemSummary {
+  totalPurchase: Int!
+  totalQuantity: Int!
+  totalRevenue: Float!
+}
+
+type PurchaseRr {
+  actualQuantity: Float!
+  buyName: String!
+  compareFileNumber: [String!]
+  date: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  product: Product
+  productId: String
+  purchase: Purchase
+  purchaseId: String
+  quantity: Float!
+  reference: String
+  remark: [String!]
+  seqNumber: Float!
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type PurchasingUser {
+  companyId: String
+  createdAt: DateTime!
+  email: String
+  id: ID!
+  lineId: String
+  modifiedAt: DateTime!
+  name: String
+  note: String
+  tel: String
+}
+
+type Query {
+  checkSessionTimeout(userId: String, waitingAuthLogin: Boolean): Boolean
+
+  """Retrieve all brands"""
+  getAllBrands(limit: Int, offset: Int): PaginatedBrand!
+
+  """Retrieve all categorys"""
+  getAllCategorys(companyId: String, limit: Int, offset: Int): PaginatedCategory!
+
+  """Retrieve all comparePrices"""
+  getAllComparePrices(limit: Int, offset: Int): PaginatedComparePrice!
+
+  """Retrieve all customers"""
+  getAllCustomers(companyId: String, customerId: [String!], limit: Int, offset: Int, query: String): PaginatedCustomer!
+  getAllEndUserByCustomerId(customerId: String!): [EndUser!]!
+
+  """Retrieve all endUsers"""
+  getAllEndUsers(limit: Int, offset: Int): PaginatedEndUser!
+
+  """Retrieve all orderItems"""
+  getAllOrderItems(companyId: String, limit: Int, offset: Int): PaginatedOrderItem!
+
+  """Retrieve all orders"""
+  getAllOrders(companyId: String, limit: Int, offset: Int): PaginatedOrder!
+
+  """Retrieve all products"""
+  getAllProducts(companyId: String, limit: Int, offset: Int, productId: [String!], query: String): PaginatedProduct!
+
+  """Retrieve all purchaseItems"""
+  getAllPurchaseItems(companyId: String, limit: Int, offset: Int): PaginatedPurchaseItem!
+
+  """Retrieve all purchases"""
+  getAllPurchases(limit: Int, offset: Int): PaginatedPurchase!
+  getAllPurchasingByCustomerId(customerId: String!): [PurchasingUser!]!
+
+  """Retrieve all purchasingUsers"""
+  getAllPurchasingUsers(limit: Int, offset: Int): PaginatedPurchasingUser!
+
+  """Retrieve all quotations"""
+  getAllQuotations(companyId: String, limit: Int, month: String, offset: Int, query: String, status: String, type: String, userId: String, viewMode: String, year: String): PaginatedQuotation!
+  getAllSaleUserByVenderId(venderId: String!): [SaleUser!]!
+
+  """Retrieve all saleUsers"""
+  getAllSaleUsers(limit: Int, offset: Int): PaginatedSaleUser!
+  getAllUserWithLine(limit: Int, offset: Int): PaginatedUser!
+
+  """ดึงรายชื่อผู้ใช้ทั้งหมด (สามารถกรองตามประเภทได้)"""
+  getAllUsers(userType: [UserType!]): [User!]!
+
+  """Retrieve all venders"""
+  getAllVenders(companyId: String, limit: Int, offset: Int, query: String, vendorId: [String!]): PaginatedVender!
+  getComparePriceByProductId(productId: String!): [ComparePrice!]!
+  getCustomerById(customerId: String): Customer!
+  getCustomersByIds(customerIds: [String!]): [Customer!]!
+  getExpireInTwoDayQuotations(companyId: String, isShowAll: Boolean, userId: String): [Quotation!]
+  getOrderByDocumentNumber(companyId: String, documentNumber: String!): Order!
+  getOrderById(id: String!): Order!
+
+  """Get order item summary by product ID"""
+  getOrderItemSummaryByProductId(productId: String!): OrderItemSummary!
+  getOrderItemsByCustomerId(customerId: String!, sortField: String, sortOrder: String): [OrderItem!]!
+  getOrderItemsByOrderId(orderId: String!): [OrderItem!]!
+  getOrderItemsByProductId(productId: String!, sortField: String, sortOrder: String): [OrderItem!]!
+  getOrderIvsByDocumentNumber(companyId: String, documentNumber: String!): [OrderIv!]!
+  getOrderIvsByOrderId(orderId: String!): [OrderIv!]!
+  getOrderIvsByOrderIdAndProductId(orderId: String!, productId: String!): [OrderIv!]!
+
+  """Retrieve a product by ID"""
+  getProductById(id: String!): Product!
+  getProductsByIds(productIds: [String!]): [Product!]!
+
+  """Get purchase item summary by product ID"""
+  getPurchaseItemSummaryByProductId(productId: String!): PurchaseItemSummary!
+  getPurchaseItemsByProductId(productId: String!, sortField: String, sortOrder: String): [PurchaseItem!]!
+  getPurchaseItemsByPurchaseId(purchaseId: String!): [PurchaseItem!]!
+  getPurchaseItemsByVenderId(sortField: String, sortOrder: String, venderId: String!): [PurchaseItem!]!
+  getPurchaseRrsByDocumentNumber(companyId: String, documentNumber: String!): [PurchaseRr!]!
+  getPurchaseRrsByPurchaseId(purchaseId: String!): [PurchaseRr!]!
+  getPurchaseRrsByPurchaseIdAndProductId(productId: String!, purchaseId: String!): [PurchaseRr!]!
+  getQuotationItemByQuotationId(quotationId: String!): [QuotationItem!]!
+  getQuotationItemProductByQuotationItemId(quotationItemId: String!): [QuotationItemProduct!]!
+
+  """Get summary counts by status"""
+  getQuotationStatusSummary(companyId: String!, userId: String, viewMode: String): QuotationStatusSummary!
+
+  """Retrieve quotations created today"""
+  getQuotationsById(quotationId: String!): Quotation!
+
+  """ค้นหาใบเสนอราคาจากหมายเลขใบเสนอราคา"""
+  getQuotationsByQuotationNumber(quotationNumber: String!): Quotation!
+
+  """Retrieve quotations created today"""
+  getQuotationsCreatedToday: [Quotation!]!
+  getTopKeywordsByCustomer(customerId: String!): [String!]!
+  getTopKeywordsByVendor(venderId: String!): [String!]!
+  getUserByEmail(email: String!): User
+  getUserById(id: String!): User
+  getUserByUserId(id: String!): User
+  getVatTypeByVenderId(venderId: String!): VatSummaryResponse!
+  getVenderById(vendorId: String): Vender!
+  getVendersByIds(vendorIds: [String!]): [Vender!]!
+  me: User
+  searchBestVenders(keyword: String!): [SearchVenderResult!]!
+  userAdminPaginated(limit: Int, offset: Int): PaginatedUserAdmin!
+  users: [String]
+}
+
+type Quotation {
+  companyId: String
+  contact: String
+  createdAt: DateTime!
+  customer: Customer
+  customerId: String
+  deliveryDueDate: String
+  documentNumber: String
+  email: String
+  endUser: EndUser
+  endUserId: String
+  expirationDate: DateTime
+  id: ID!
+  images: [String!]
+  inSiderFile: [String!]
+  inSiderNote: String
+  items: [QuotationItem!]
+  leadChannel: String
+  leadReceivedDate: DateTime
+  modifiedAt: DateTime!
+  note: String
+  paymentTerm: String
+  priceApprovedBy: String
+  priceValidUntil: String
+  purchasingUser: PurchasingUser
+  purchasingUserId: String
+  quotationDocuments: [String!]
+  quotationNumber: String!
+  quotedBy: String
+  quotedDate: DateTime
+  reference: String
+  referenceLink: String
+  salesUser: String
+  status: QuotationStatus!
+  user: User
+  userId: String
+}
+
+type QuotationItem {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  images: [String!]
+  inSiderFile: [String!]
+  inSiderNote: String
+  isHidden: Boolean!
+  isObsolete: Boolean!
+  modifiedAt: DateTime
+  name: String
+  note: String
+  oldIv: String
+  oldName: String
+  oldTotalPrice: Float
+  oldUnitPrice: Float
+  productLink: String
+  quantity: Int
+  quotationId: String
+  quotationItemProduct: [QuotationItemProduct!]
+  sellName: String
+  sequence: Int
+  status: QuotationItemStatus!
+  totalPrice: Float
+  totalPriceNoVat: Float
+  unit: String
+  unitPrice: Float
+  vat: Float
+}
+
+input QuotationItemInput {
+  customerSpec: String!
+  globalName: String
+  id: String
+  images: [AnyHybridQuotation]
+  inSiderNote: String
+  isHidden: Boolean!
+  isObsolete: Boolean!
+  note: String
+  oldRefDoc: String
+  pricePerUnit: Float!
+  productLink: String
+  qty: Float!
+  unit: String!
+}
+
+type QuotationItemProduct {
+  comparePrices: [ComparePrice!]
+  createdAt: DateTime!
+  id: String!
+  modifiedAt: DateTime
+  note: String
+  product: Product
+  productId: String
+  quotationItemId: String
+  sequence: Int
+  workSheetImages: [String!]
+}
+
+"""The status of an individual item within a quotation"""
+enum QuotationItemStatus {
+  CANCELLED
+  DISCONTINUE
+  DONE
+  IN_PROGRESS
+  OPEN
+  WATTING_PRICE_CONFIRMED
+}
+
+type QuotationLog {
+  createdAt: DateTime!
+  detail: String
+  id: ID!
+  modifiedAt: DateTime!
+  note: String
+  quotationId: String
+  subject: String
+  timeStamp: DateTime!
+}
+
+enum QuotationStatus {
+  CANCELLED
+  IN_PROGRESS
+  OPEN
+  OP_OPENED
+  PRICE_CONFIRMED
+  QUOTATION_SENT
+  WAITING_FOR_QUOTATION_SEND
+}
+
+type QuotationStatusSummary {
+  CANCELLED: Int
+  IN_PROGRESS: Int
+  OPEN: Int
+  OP_OPENED: Int
+  PRICE_CONFIRMED: Int
+  QUOTATION_SENT: Int
+  WAITING_FOR_QUOTATION_SEND: Int
+}
+
+type Remark {
+  documentNumber: String!
+  id: String!
+  remark: String
+  seqNumber: String!
+}
+
+type SaleUser {
+  createdAt: DateTime!
+  email: String
+  id: String!
+  lineId: String
+  modifiedAt: DateTime
+  name: String
+  note: String
+  tel: String
+  venderId: String
+}
+
+type SearchVenderResult {
+  discount: String!
+  id: String!
+  productName: String!
+  purchaseCount: Int!
+  purchaseDate: DateTime!
+  totalRelevance: Float!
+  venderName: String!
+  venderTel: String
+}
+
+input SignUpInput {
+  email: String!
+  firstName: String
+  lastName: String
+  password: String!
+  userType: UserType
+}
+
+input SignUpSocialInput {
+  avatarUrl: String
+  consent: Boolean!
+  deliverySharingConsent: Boolean!
+  email: String!
+  firstName: String
+  id: String!
+  installerSharingConsent: Boolean!
+  lastName: String
+  lineId: String
+  mobileNo: String!
+  news: Boolean!
+  opinionConsent: Boolean!
+  pdpaConsent: Boolean!
+  referrerCode: String
+  sellerSharingConsent: Boolean!
+  serviceConsent: Boolean!
+  tecConsent: Boolean!
+  userType: UserType
+}
+
+enum SourceType {
+  LEGACY
+  NEW
+}
+
+input UpdateComparePriceInput {
+  OldRr: String
+  buyName: String
+  currency: String = "THB"
+  deliveryPrice: Float = 0
+  deliveryType: DeliveryType = DELIVERY
+  discount: String
+  id: ID!
+  images: [AnyHybridComparePrice!]
+  isOutOfStock: Boolean = false
+  leadTime: String
+  link: String
+  note: String
+  productId: String
+  quantity: Int
+  quotationItemProductId: String
+  quotations: [AnyHybridComparePrice!]
+  saleUserId: String
+  sourceType: SourceType = NEW
+  totalPrice: Float
+  totalPriceNoVat: Float
+  unit: String
+  unitPrice: Float
+  vat: Float
+  vatType: String
+  venderId: String
+}
+
+input UpdateComparePriceSequenceInput {
+  id: String!
+  sequence: Int!
+}
+
+input UpdateProductInput {
+  ExCode: String
+  brandId: ID
+  categoryId: ID
+  companyId: ID
+  dataSheetFiles: [Upload!]
+  description: String
+  detail: String
+  existingImages: [String!]
+  existingSheets: [String!]
+  existingVideos: [String!]
+  id: String!
+  imageFiles: [Upload!]
+  isGroup: Boolean = false
+  name: String
+  partstore: String
+  unit: String
+  videoFiles: [Upload!]
+}
+
+input UpdateQuotationInput {
+  companyId: String
+  contact: String
+  customerId: String
+  deliveryDueDate: String
+  documentNumber: String
+  email: String
+  endUserId: String
+  expirationDate: DateTime
+  id: ID!
+  inSiderFile: [AnyHybridQuotation!]
+  inSiderNote: String
+  items: [QuotationItemInput!]
+  leadChannel: String
+  leadReceivedDate: DateTime
+  note: String
+  paymentTerm: String
+  priceApprovedBy: String
+  priceValidUntil: String
+  purchasingUserId: String
+  quotationDocuments: [AnyHybridQuotation!]
+  quotationImages: [AnyHybridQuotation!]
+  quotationNumber: String
+  quotedBy: String
+  quotedDate: DateTime
+  reference: String
+  referenceLink: String
+  salesUser: String
+  status: String
+  userId: String
+}
+
+input UpdateQuotationItemProductSequenceInput {
+  id: String!
+  sequence: Int!
+}
+
+input UpdateSaleUserInput {
+  email: String
+  id: String!
+  lineId: String
+  name: String
+  tel: String
+  venderId: String
+}
+
+input UpdateUserInput {
+  email: String
+  firstName: String
+  lastName: String
+  userType: UserType = PURCHASE
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type User {
+  attemptLifeTime: DateTime
+  createdAt: DateTime!
+  email: String!
+  firstName: String
+  id: ID!
+  lastLogin: DateTime
+  lastName: String
+  loginAttempt: Float
+  resetPasswordCode: String
+  status: UserStatus!
+  userType: UserType!
+}
+
+type UserAdmin {
+  createdAt: DateTime!
+  id: ID!
+  modifiedAt: DateTime!
+  role: String!
+  user: User
+  userId: String!
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+enum UserType {
+  ADMIN
+  PURCHASE
+  SALES
+}
+
+type VatSummaryResponse {
+  text: String
+  vatType: String
+}
+
+type Vender {
+  ExAcCode: String
+  ExCode: String!
+  address: String
+  branch: String
+  companyId: String
+  contact: String
+  creditTerm: Float
+  deliveryBy: String
+  financialAmount: Float
+  financialCondition: String
+  id: String!
+  name: String!
+  note: String
+  remark: String
+  taxId: String
+  telNumber: String
+  type: String!
+}

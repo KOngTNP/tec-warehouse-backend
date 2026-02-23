@@ -1,0 +1,525 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Brand {
+  description: String
+  id: String!
+  name: String!
+  products: [Product!]
+}
+
+type Category {
+  ExCode: String!
+  description: String
+  id: String!
+  name: String!
+  products: [Product!]
+}
+
+type Customer {
+  ExAcCode: String
+  ExCode: String!
+  address: String
+  area: String
+  branch: String
+  condition: String
+  contact: String
+  creditTerm: Float
+  deliveryBy: String
+  financialAmount: Float
+  id: String!
+  name: String!
+  remark: String
+  taxId: String
+  telNumber: String
+  type: String!
+  zipCode: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input GrantAdminInput {
+  key: String!
+  role: String!
+  userId: String!
+}
+
+type Mutation {
+  """Add image to product by product ID"""
+  addProductImageById(imageUrl: String!, productId: String!): Product!
+  checkSigninAttempt(email: String!): String
+  createCustomerSearchFile(companyId: String): Boolean
+  createLineAuthCustomToken(customTokenKey: String!, userId: String!): String!
+  createProductSearchFile(companyId: String): Boolean
+  createSigninAttempt(email: String!): String
+  createVenderSearchFile(companyId: String): Boolean
+  deleteFirebaseAccount(id: String!): Boolean!
+  getResetPasswordPublicKeyPair: String!
+  grantAdmin(grantAdminInput: GrantAdminInput!): User
+  grantAdminByEmail(email: String!, role: String!): User
+
+  """Remove image from product by product ID"""
+  removeProductImageById(imageUrl: String!, productId: String!): Product!
+  resetPassword(id: String!, newPassword: String!, referenceKey: String!): Boolean!
+  resetSigninAttempt(email: String!): Boolean
+  revokeAdmin(grantAdminInput: GrantAdminInput!): User
+  revokeAdminByEmail(email: String!): User
+  sentMailResetPassword(email: String!): Boolean!
+  signIn: User
+
+  """Request OTP to specified phone number"""
+  signupOtpRequest(to: String!): String!
+  signupWithEmail(signUpInput: SignUpInput!): User
+  signupWithGoogle(signUpSocialInput: SignUpSocialInput!): User
+  updateUser(updateUserInput: UpdateUserInput!): User
+  userSignupCheck(email: String!, mobileNo: String!): Boolean!
+  veriflyResetPassword(id: String!, referenceKey: String!): Boolean!
+}
+
+type Order {
+  billNumber: String
+  creditTerm: Float
+  customer: Customer
+  customerId: String
+  date: DateTime!
+  deliveryBy: String
+  deliveryDate: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  invoiceNumber: String
+  orderItem: [OrderItem!]
+  reference: String
+  totalPrice: Float!
+  totalPriceNoVat: Float!
+  vat: Float!
+  vatType: String
+}
+
+type OrderItem {
+  actualQuantity: Float!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  order: Order
+  orderId: String
+  product: Product
+  productId: String
+  quantity: Float!
+  reference: String
+  sellName: String!
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type OrderItemSummary {
+  totalOrder: Int!
+  totalQuantity: Int!
+  totalRevenue: Float!
+}
+
+type OrderIv {
+  actualQuantity: Float!
+  date: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  order: Order
+  orderId: String
+  product: Product
+  productId: String
+  quantity: Float!
+  reference: String
+  sellName: String!
+  seqNumber: Float
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type PaginatedBrand {
+  hasNextPage: Boolean!
+  nodes: [Brand!]!
+  totalCount: Int!
+}
+
+type PaginatedCategory {
+  hasNextPage: Boolean!
+  nodes: [Category!]!
+  totalCount: Int!
+}
+
+type PaginatedCustomer {
+  hasNextPage: Boolean!
+  nodes: [Customer!]!
+  totalCount: Int!
+}
+
+type PaginatedOrder {
+  hasNextPage: Boolean!
+  nodes: [Order!]!
+  totalCount: Int!
+}
+
+type PaginatedOrderItem {
+  hasNextPage: Boolean!
+  nodes: [OrderItem!]!
+  totalCount: Int!
+}
+
+type PaginatedProduct {
+  hasNextPage: Boolean!
+  nodes: [Product!]!
+  totalCount: Int!
+}
+
+type PaginatedPurchase {
+  hasNextPage: Boolean!
+  nodes: [Purchase!]!
+  totalCount: Int!
+}
+
+type PaginatedPurchaseItem {
+  hasNextPage: Boolean!
+  nodes: [PurchaseItem!]!
+  totalCount: Int!
+}
+
+type PaginatedUser {
+  hasNextPage: Boolean!
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+type PaginatedUserAdmin {
+  hasNextPage: Boolean!
+  nodes: [UserAdmin!]!
+  totalCount: Int!
+}
+
+type PaginatedVender {
+  hasNextPage: Boolean!
+  nodes: [Vender!]!
+  totalCount: Int!
+}
+
+type Product {
+  ExCode: String!
+  category: Category
+  categoryId: String
+  childGroups: [ProductGroup!]
+  description: String
+  id: String!
+  images: [String!]
+  isGroup: Boolean
+  lastBuyDetail: ProductLastBuyDetail
+  lastSellDetail: ProductLastSellDetail
+  name: String!
+  parentGroups: [ProductGroup!]
+  partstore: String!
+  unit: String!
+}
+
+type ProductGroup {
+  childProduct: Product
+  childProductId: ID
+  id: ID!
+  parentProduct: Product
+  parentProductId: ID
+  quantity: Float
+  seqNumber: Int
+}
+
+type ProductLastBuyDetail {
+  lastBuyCompareFileNumber: [String!]
+  lastBuyDate: DateTime
+  lastBuyDiscount: String
+  lastBuyPurchaseReference: String
+  lastBuyQuantity: Float
+  lastBuyRemark: [String!]
+  lastBuyTotalPrice: Float
+  lastBuyUnit: String
+  lastBuyUnitPrice: Float
+  lastBuyUnitPriceAfterDiscount: Float
+  lastBuyVatType: String
+  lastBuyVenderContact: String
+  lastBuyVenderName: String
+}
+
+type ProductLastSellDetail {
+  lastSellCustomerContact: String
+  lastSellCustomerName: String
+  lastSellDate: DateTime
+  lastSellDiscount: String
+  lastSellOrderReference: String
+  lastSellQuantity: Float
+  lastSellTotalPrice: Float
+  lastSellUnit: String
+  lastSellUnitPrice: Float
+  lastSellUnitPriceAfterDiscount: Float
+  lastSellVatType: String
+}
+
+type Purchase {
+  creditTerm: Float
+  date: DateTime!
+  deliveryBy: String
+  discount: String
+  documentNumber: String!
+  id: String!
+  purchaseItem: [PurchaseItem!]
+  purchaseNumber: String
+  receiptDate: DateTime!
+  reference: String
+  totalPrice: Float!
+  totalPriceNoVat: Float!
+  vat: Float!
+  vatType: String
+  vender: Vender
+  venderId: String
+}
+
+type PurchaseItem {
+  actualQuantity: Float!
+  buyName: String!
+  compareFileNumber: [String!]
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  product: Product
+  productId: String
+  purchase: Purchase
+  purchaseId: String
+  quantity: Float!
+  reference: String
+  remark: [String!]
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type PurchaseItemSummary {
+  totalPurchase: Int!
+  totalQuantity: Int!
+  totalRevenue: Float!
+}
+
+type PurchaseRr {
+  actualQuantity: Float!
+  buyName: String!
+  compareFileNumber: [String!]
+  date: DateTime!
+  discount: String
+  documentNumber: String!
+  id: String!
+  isFree: Boolean!
+  product: Product
+  productId: String
+  purchase: Purchase
+  purchaseId: String
+  quantity: Float!
+  reference: String
+  remark: [String!]
+  seqNumber: Float!
+  totalPrice: Float!
+  unit: String!
+  unitPrice: Float!
+}
+
+type Query {
+  checkSessionTimeout(userId: String, waitingAuthLogin: Boolean): Boolean
+
+  """Retrieve all brands"""
+  getAllBrands(limit: Int, offset: Int): PaginatedBrand!
+
+  """Retrieve all categorys"""
+  getAllCategorys(companyId: String, limit: Int, offset: Int): PaginatedCategory!
+
+  """Retrieve all customers"""
+  getAllCustomers(companyId: String, customerId: [String!], limit: Int, offset: Int, query: String): PaginatedCustomer!
+
+  """Retrieve all orderItems"""
+  getAllOrderItems(companyId: String, limit: Int, offset: Int): PaginatedOrderItem!
+
+  """Retrieve all orders"""
+  getAllOrders(companyId: String, limit: Int, offset: Int): PaginatedOrder!
+
+  """Retrieve all products"""
+  getAllProducts(companyId: String, limit: Int, offset: Int, productId: [String!], query: String): PaginatedProduct!
+
+  """Retrieve all purchaseItems"""
+  getAllPurchaseItems(companyId: String, limit: Int, offset: Int): PaginatedPurchaseItem!
+
+  """Retrieve all purchases"""
+  getAllPurchases(limit: Int, offset: Int): PaginatedPurchase!
+  getAllUserWithLine(limit: Int, offset: Int): PaginatedUser!
+
+  """Retrieve all venders"""
+  getAllVenders(companyId: String, limit: Int, offset: Int, query: String, vendorId: [String!]): PaginatedVender!
+  getCustomerById(customerId: String): Customer!
+  getCustomersByIds(customerIds: [String!]): [Customer!]!
+  getOrderByDocumentNumber(companyId: String, documentNumber: String!): Order!
+  getOrderById(id: String!): Order!
+
+  """Get order item summary by product ID"""
+  getOrderItemSummaryByProductId(productId: String!): OrderItemSummary!
+  getOrderItemsByCustomerId(customerId: String!, sortField: String, sortOrder: String): [OrderItem!]!
+  getOrderItemsByOrderId(orderId: String!): [OrderItem!]!
+  getOrderItemsByProductId(productId: String!, sortField: String, sortOrder: String): [OrderItem!]!
+  getOrderIvsByDocumentNumber(companyId: String, documentNumber: String!): [OrderIv!]!
+  getOrderIvsByOrderId(orderId: String!): [OrderIv!]!
+  getOrderIvsByOrderIdAndProductId(orderId: String!, productId: String!): [OrderIv!]!
+
+  """Retrieve a product by ID"""
+  getProductById(id: String!): Product!
+  getProductsByIds(productIds: [String!]): [Product!]!
+
+  """Get purchase item summary by product ID"""
+  getPurchaseItemSummaryByProductId(productId: String!): PurchaseItemSummary!
+  getPurchaseItemsByProductId(productId: String!, sortField: String, sortOrder: String): [PurchaseItem!]!
+  getPurchaseItemsByPurchaseId(purchaseId: String!): [PurchaseItem!]!
+  getPurchaseItemsByVenderId(sortField: String, sortOrder: String, venderId: String!): [PurchaseItem!]!
+  getPurchaseRrsByDocumentNumber(companyId: String, documentNumber: String!): [PurchaseRr!]!
+  getPurchaseRrsByPurchaseId(purchaseId: String!): [PurchaseRr!]!
+  getPurchaseRrsByPurchaseIdAndProductId(productId: String!, purchaseId: String!): [PurchaseRr!]!
+  getTopKeywordsByCustomer(customerId: String!): [String!]!
+  getTopKeywordsByVendor(venderId: String!): [String!]!
+  getUserByEmail(email: String!): User
+  getUserById(id: String!): User
+  getUserByUserId(id: String!): User
+  getVenderById(vendorId: String): Vender!
+  getVendersByIds(vendorIds: [String!]): [Vender!]!
+  me: User
+  referralCodeCheck(refCode: String!): Boolean!
+  searchBestVenders(keyword: String!): [SearchVenderResult!]!
+  userAdminPaginated(limit: Int, offset: Int): PaginatedUserAdmin!
+  users: [String]
+  usersPaginated(createdAtfromDate: DateTime = null, createdAttoDate: DateTime = null, email: String, firstName: String, lastLoginfromDate: DateTime = null, lastLogintoDate: DateTime = null, lastName: String, limit: Int, offset: Int, status: UserStatus = null, userType: UserType = null): PaginatedUser!
+}
+
+type Remark {
+  documentNumber: String!
+  id: String!
+  remark: String
+  seqNumber: String!
+}
+
+type SearchVenderResult {
+  discount: String!
+  id: String!
+  productName: String!
+  purchaseCount: Int!
+  purchaseDate: DateTime!
+  totalRelevance: Float!
+  venderName: String!
+  venderTel: String
+}
+
+input SignUpInput {
+  avatarUrl: String
+  consent: Boolean!
+  deliverySharingConsent: Boolean!
+  email: String!
+  firstName: String
+  installerSharingConsent: Boolean!
+  lastName: String
+  lineId: String
+  mobileNo: String!
+  news: Boolean!
+  opinionConsent: Boolean!
+  password: String!
+  pdpaConsent: Boolean!
+  referrerCode: String
+  sellerSharingConsent: Boolean!
+  serviceConsent: Boolean!
+  tecConsent: Boolean!
+  userType: UserType
+}
+
+input SignUpSocialInput {
+  avatarUrl: String
+  consent: Boolean!
+  deliverySharingConsent: Boolean!
+  email: String!
+  firstName: String
+  id: String!
+  installerSharingConsent: Boolean!
+  lastName: String
+  lineId: String
+  mobileNo: String!
+  news: Boolean!
+  opinionConsent: Boolean!
+  pdpaConsent: Boolean!
+  referrerCode: String
+  sellerSharingConsent: Boolean!
+  serviceConsent: Boolean!
+  tecConsent: Boolean!
+  userType: UserType
+}
+
+input UpdateUserInput {
+  email: String
+  firstName: String
+  lastName: String
+  userType: UserType = PERSONAL
+}
+
+type User {
+  attemptLifeTime: DateTime
+  createdAt: DateTime!
+  email: String!
+  firstName: String
+  id: ID!
+  lastLogin: DateTime
+  lastName: String
+  loginAttempt: Float
+  resetPasswordCode: String
+  status: UserStatus!
+  userType: UserType!
+}
+
+type UserAdmin {
+  createdAt: DateTime!
+  id: ID!
+  modifiedAt: DateTime!
+  role: String!
+  user: User
+  userId: String!
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+enum UserType {
+  ADMIN
+  PERSONAL
+}
+
+type Vender {
+  ExAcCode: String
+  ExCode: String!
+  address: String
+  branch: String
+  contact: String
+  creditTerm: Float
+  deliveryBy: String
+  financialAmount: Float
+  financialCondition: String
+  id: String!
+  name: String!
+  remark: String
+  taxId: String
+  telNumber: String
+  type: String!
+}

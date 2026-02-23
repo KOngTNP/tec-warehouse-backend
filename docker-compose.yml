@@ -1,0 +1,19 @@
+services:
+  v1:
+    build:
+      context: .
+      args:
+        ENV_NAME: production   # หรือ staging/dev
+    container_name: nestjs-app
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      CONFIG_NAME: production
+    volumes:
+      # 🔹 แมปไฟล์ DBF จาก Windows host
+      - D:/Express/ExpressI/60TRERAS:/app/tec_dbf_files
+      - D:/Express/ExpressI/tnp60:/app/tm_dbf_files
+      - ./dbf_backup:/app/dbf_backup
