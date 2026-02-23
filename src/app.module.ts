@@ -41,6 +41,7 @@ import { ImportModule } from './import/import.module';
       ignoreEnvFile: process.env.MODE === 'production',
       load: [config],
       isGlobal: true,
+      envFilePath: `.env`,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

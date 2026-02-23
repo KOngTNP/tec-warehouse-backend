@@ -15,6 +15,6 @@ export const config = () => {
 
   console.log(`process.env.CONFIG_NAME [${process.env.CONFIG_NAME}]`);
   console.log(`Using config [${mode}]`);
-  console.log(configMap[mode]);
-  return configMap[mode];
+  console.log(configMap[mode]());
+  return configMap[mode](); // 🔥 เรียก function
 };
